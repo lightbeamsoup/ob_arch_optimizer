@@ -113,10 +113,6 @@ card.common.3=gilded
 
 - Replace the provisional stage `50+` Divine normal-spawn weights with real measured data.
 - Fill in missing Ascension 2 archaeology upgrades and verify their exact formulas.
-- Verify the remaining uncertain archaeology formulas against in-game tests, especially:
-  - `Asc1 Damage/Exp` XP scaling
-  - explicit speed-mod proc behavior vs. the current attack-rate heuristic
-  - any remaining ambiguous fragment or crit interactions
 - Add regression tests for saved-state stat sheets, optimizer evaluations, and representative full runs.
 - Improve GUI polish for larger configs:
   - better grouping/filtering for upgrades
