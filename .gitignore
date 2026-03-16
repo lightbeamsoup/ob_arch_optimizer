@@ -1,0 +1,8 @@
+target/
+
+# Local saves / scratch state
+archaeology_cards_test.txt
+archaeology_progress_test.txt
+
+# Editor / OS noise
+.DS_Store
