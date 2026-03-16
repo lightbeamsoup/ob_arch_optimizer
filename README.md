@@ -10,6 +10,20 @@ This is a Rust archaeology simulator and optimizer for Idle Obelisk Miner. It sh
 
 ## Usage
 
+Preferred:
+
+```bash
+cargo run -- gui
+```
+
+If you want to load a specific state file instead of relying on GUI auto-load:
+
+```bash
+cargo run -- gui --load-state archaeology_state.txt
+```
+
+CLI examples:
+
 ```bash
 cargo run -- simulate --stage-cap 75 --highest-stage 42 --strength 30 --agility 20 --perception 25 --intellect 25 --luck 25 --upgrade unlock_ability=2
 cargo run -- optimize --stage-cap 75 --strength 30 --agility 20 --perception 25 --intellect 25 --luck 25 --upgrade unlock_ability=2 --upgrade fragment_gain_gems=10 --top 5
@@ -68,7 +82,8 @@ card.common.3=gilded
   - Quake is cast on cooldown and each active attack splashes damage onto every live block on the current stage
 - Optimization objectives now support `fragments`, `experience`, and `max_level`.
 - For fragment optimization, you can target all fragments together or a specific fragment currency with `fragment_objective=all|common|rare|epic|legendary|mythic|divine`.
-- `cargo run -- gui` opens a basic desktop editor for the same state-file fields, balances, upgrades, and cards, with buttons to save, simulate, and optimize.
+- `cargo run -- gui` is the preferred way to use the project.
+- The GUI edits the same state-file fields, balances, upgrades, and cards, and includes live stats, batch sim controls, and the optimizer trace.
 - The GUI auto-loads `archaeology_state.txt` on startup if it exists, unless you pass `--no-auto-load`.
 - The optimizer trace in the GUI shows the active target, plots objective value by evaluation, and lets you apply the best discovered skill allocation back into the current build when the run finishes.
 - The state/config file also supports `sheet_speed_mod_always_active=true|false`.
@@ -98,10 +113,15 @@ card.common.3=gilded
 
 - Replace the provisional stage `50+` Divine normal-spawn weights with real measured data.
 - Fill in missing Ascension 2 archaeology upgrades and verify their exact formulas.
-- Verify remaining ambiguous additive vs. multiplicative interactions against in-game tests.
-- Improve the GUI layout and grouping for larger state files and long upgrade lists.
+- Verify the remaining uncertain archaeology formulas against in-game tests, especially:
+  - `Asc1 Damage/Exp` XP scaling
+  - explicit speed-mod proc behavior vs. the current attack-rate heuristic
+  - any remaining ambiguous fragment or crit interactions
+- Add regression tests for saved-state stat sheets, optimizer evaluations, and representative full runs.
+- Improve GUI polish for larger configs:
+  - better grouping/filtering for upgrades
+  - clearer optimizer summaries and graph labeling
 - Add import/export helpers for sharing builds more easily.
-- Add automated regression tests for saved-state stat sheets and representative full runs.
 
 ## Contributing
 
@@ -121,6 +141,7 @@ cargo build
 cargo fmt
 cargo run -- gui
 cargo run -- simulate --load-state archaeology_state.txt
+cargo run -- optimize --load-state archaeology_state.txt
 ```
 
 If you want to start a fresh repository here:
